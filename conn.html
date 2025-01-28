@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confetti Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--confetti-color);
+            opacity: 0.8;
+            animation: fall linear infinite;
+            transform: rotate(45deg);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<script>
+    const colors = ["#FF5733", "#FFC300", "#DAF7A6", "#FF33F6", "#33FFBD"];
+
+    function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.setProperty("--confetti-color", colors[Math.floor(Math.random() * colors.length)]);
+
+        const xPosition = Math.random() * window.innerWidth;
+        const fallDuration = Math.random() * 3 + 2; // Between 2-5 seconds
+        const size = Math.random() * 10 + 5; // Between 5px and 15px
+
+        confetti.style.left = `${xPosition}px`;
+        confetti.style.animationDuration = `${fallDuration}s`;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, fallDuration * 1000);
+    }
+
+    setInterval(createConfetti, 100);
+</script>
+
+</body>
+</html>
